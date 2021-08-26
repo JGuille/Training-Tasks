@@ -1,0 +1,15 @@
+project_id                  = "loadout-incoming"
+gcp_region                  = "us-central1"
+gce_network_name            = "demo-network"
+vpc_mtu                     = 1460
+vpc_auto_create_subnetworks = false
+gce_subnetwork_name         = "demo-subnetwork"
+gce_subnet_ip               = "10.232.0.0/20"
+ip_range_pods               = "10.20.0.0/16"
+ip_range_services           = "10.30.0.0/16"
+gce_firewall_rule           = "allow-ssh"
+gce_firewall_direction      = "INGRESS"
+gce_firewall_range          = "0.0.0.0/0"
+gce_firewall_protocol       = "tcp"
+gce_firewall_port           = "22"
+env_name                    = "prod"

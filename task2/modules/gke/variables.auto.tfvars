@@ -1,0 +1,19 @@
+project_id                  = "loadout-incoming"
+name                        = "task2-cluster"
+env_name                    = "prod"
+gcp_region                  = "us-central1"
+gcp_zone                    = "us-central1-a"
+gce_network_name            = "demo-network"
+gce_subnetwork_name         = "demo-subnetwork"
+ip_range_pods               = "10.20.0.0/16"
+ip_range_services           = "10.30.0.0/16"
+node_pools = {
+    name                    = "node-pool"
+    machine_type            = "n1-standard-1"
+    node_locations          = "us-central1-c"
+    min_count               = 1
+    max_count               = 2
+    disk_size_gb            = 30
+}
+regional                    = true
+horizontal_pod_autoscaling  = true

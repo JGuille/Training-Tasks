@@ -1,0 +1,6 @@
+gce_name            = "epam-instance"
+gce_machine_type    = "e2-standard-2"
+gce_zone            = "us-central1-a"
+gce_tag             = "vm-instance"
+gce_image_os        = "ubuntu-os-cloud/ubuntu-2004-lts"
+gce_subnetwork_name = "new-subnetwork"

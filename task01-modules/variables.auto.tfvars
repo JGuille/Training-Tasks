@@ -1,0 +1,17 @@
+project_id                  = "epam-001"
+gcp_region                  = "us-central1"
+gce_network_name            = "new-network"
+vpc_mtu                     = 1460
+vpc_auto_create_subnetworks = false
+gce_subnetwork_name         = "new-subnetwork"
+gce_subnet_ip               = "10.232.0.0/20"
+gce_firewall_rule           = "allow-ssh"
+gce_firewall_direction      = "INGRESS"
+gce_firewall_range          = "0.0.0.0/0"
+gce_firewall_protocol       = "tcp"
+gce_firewall_port           = "22"
+gce_tag                     = "vm-instance"
+gce_image_os                = "ubuntu-os-cloud/ubuntu-2004-lts"
+gce_name                    = "epam-instance"
+gce_machine_type            = "e2-standard-2"
+gce_zone                    = "us-central1-a"
