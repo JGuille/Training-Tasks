@@ -1,11 +1,9 @@
-module "network_vpc" {
-  source                  = "terraform-google-modules/network/google//modules/vpc"
-  project_id              = var.project_id
-  network_name            = var.gce_network_name
+resource "google_compute_network" "network" {
+  project                 = var.project_id
+  name                    = var.gce_network_name
   auto_create_subnetworks = var.vpc_auto_create_subnetworks
   mtu                     = var.vpc_mtu
 }
-
 module "network_subnets" {
   source       = "terraform-google-modules/network/google//modules/subnets"
   project_id   = var.project_id
@@ -32,7 +30,7 @@ module "network_subnets" {
     ]
   }
 
-  depends_on = [module.network_vpc]
+  depends_on = [google_compute_network.network]
 }
 
 module "firewall_rules" {
@@ -60,5 +58,28 @@ module "firewall_rules" {
     }
   }]
 
-  depends_on = [module.network_vpc]
+  depends_on = [google_compute_network.network]
+}
+
+resource "google_compute_global_address" "private_ip_address" {
+  provider = google-beta
+
+  name          = "private-ip-address"
+  purpose       = "VPC_PEERING"
+  address_type  = "INTERNAL"
+  prefix_length = 16
+  network       = google_compute_network.network.id
+  project       = var.project_id
+}
+
+resource "google_service_networking_connection" "private_vpc_connection" {
+  provider = google-beta
+
+  network                 = google_compute_network.network.id
+  service                 = "servicenetworking.googleapis.com"
+  reserved_peering_ranges = [google_compute_global_address.private_ip_address.name]
+}
+
+output "network_id" {
+  value = google_compute_network.network.id
 }
