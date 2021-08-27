@@ -1,3 +1,4 @@
+#General Variables
 variable "project_id" {
   type        = string
   description = "GCP Project ID"
@@ -10,6 +11,8 @@ variable "gcp_zone" {
   type        = string
   description = "GCP Zone"
 }
+
+#VPC variables
 variable "gce_network_name" {
   type        = string
   description = "GCE Network Name"
@@ -95,10 +98,67 @@ variable "node_pools" {
 variable "regional" {
   type        = bool
   description = "Regional Cluster"
-  default = true
+  default     = true
+}
+variable "machine_type" {
+  description = "Machine type for cluster"
+  default     = "db-n1-standard-1"
+  type        = string
 }
 variable "horizontal_pod_autoscaling" {
   type        = bool
   description = "Regional Cluster"
   default = true
+}
+
+#SQL variables
+variable "instance_name" {
+  description = "The name of the instance. If the name is left blank, Terraform will randomly generate one when the instance is first created."
+  default     = "task2-instance"
+  type        = string
+}
+variable "database_version" {
+  description = "The MySQL, PostgreSQL or SQL Server version to use"
+  default     = "MYSQL_5_6"
+  type        = string
+}
+variable "tier" {
+  description = "The machine type to use for the MySQL instance"
+  default     = "n1-standard-1"
+  type        = string
+}
+variable "activation_policy" {
+  description = "This specifies when the instance should be active. Can be either ALWAYS, NEVER or ON_DEMAND"
+  default     = "ALWAYS"
+  type        = string
+}
+variable "database_name" {
+  description = "The name of the database"
+  default     = "gpp-training"
+  type        = string
+}
+variable "charset" {
+  description = "The charset value"
+  default     = "utf8"
+  type        = string
+}
+variable "collation" {
+  description = "The collation value"
+  default     = "utf8_general_ci"
+  type        = string
+}
+variable "host" {
+  description = "The host the user can connect from. This is only supported for MySQL instances"
+  default     = "%"
+  type        = string
+}
+variable "db_username" {
+  description = "Database administrator user"
+  type        = string
+  sensitive   = true
+}
+variable "db_password" {
+  description = "Database administrator password"
+  type        = string
+  sensitive   = true
 }
