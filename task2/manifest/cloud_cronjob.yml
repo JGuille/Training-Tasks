@@ -1,0 +1,38 @@
+---
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: mysql-backup
+spec:
+  schedule: "0 0 * * *"
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  startingDeadlineSeconds: 100
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+            - name: mysql-backup
+              image: gcr.io/loadout-incoming/mysql-backup-alpine
+              command:
+                - sh  
+                - /root/backup-script.sh
+              env:
+              - name: BD_HOST
+                value: '%'
+              - name: DB_USER
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: username
+              - name: DB_PASSWORD
+                valueFrom:
+                  secretKeyRef:
+                    name: cloudsql-db-credentials
+                    key: password
+              - name: DB_NAME
+                value: gcp-training
+              - name: GS_BUCKET
+                value: test_bucket_loadout
+          restartPolicy: Never
