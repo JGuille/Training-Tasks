@@ -15,3 +15,5 @@
 # gcp credentials
 
 *.json
+*.zip
+../demo2-gcp-master/
