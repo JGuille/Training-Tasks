@@ -9,7 +9,7 @@ resource "google_compute_instance" "vm_instance_public" {
 
   boot_disk {
     initialize_params {
-      image = "ubuntu-os-cloud/ubuntu-1804-lts"
+      image = "ubuntu-ghost"
     }
   }
 
