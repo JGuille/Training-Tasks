@@ -47,7 +47,6 @@ module "vpc" {
   gke_firewall_protocol                     = var.gke_firewall_protocol
   gke_firewall_port                         = var.gke_firewall_port
   gke_region                                = var.gke_region
-
 }
 
 module "gke" {
@@ -102,7 +101,10 @@ module "compute_instance" {
   gce_network_name                          = var.gce_network_name
   gce_email                                 = module.ps_service_account.google_service_account_email
 
-  depends_on = [module.ps_service_account, module.vpc]
+  depends_on = [
+    module.ps_service_account, 
+    module.vpc
+  ]
 }
 
 module "pubsub" {
@@ -110,6 +112,10 @@ module "pubsub" {
   project_id                               = var.project_id
   topic_name                               = var.topic_name
   topic_labels                             = var.topic_labels
+  depends_on = [
+    module.ps_service_account,
+    module.compute_instance
+  ]
 }
 
 module "scheduler" {
@@ -120,4 +126,8 @@ module "scheduler" {
   job_schedule                            = var.job_schedule
   job_timezone                            = var.job_timezone
   job_region                              = var.job_region
+  depends_on = [
+    module.ps_service_account,
+    module.compute_instance
+  ]
 }
