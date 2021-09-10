@@ -1,5 +1,5 @@
 #!/bin/bash
-cd /home/guillermo/exercises/Final-Demo/modules/compute_instance
+cd /home/jguille_escalona/
 # Create cron script
 echo '#!/bin/bash' >> cron.sh
 echo 'current_time=$(date "+%Y.%m.%d-%H.%M.%S")' >> cron.sh
